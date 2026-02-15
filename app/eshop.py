@@ -1,7 +1,7 @@
+import uuid
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from services import ShippingService
-import uuid
 
 
 class Product:
@@ -31,7 +31,7 @@ class Product:
 
 class ShoppingCart:
     def __init__(self):
-        self.products = dict()
+        self.products = {}
 
     def contains_product(self, product):
         return product in self.products
@@ -69,7 +69,13 @@ class Order:
             due_date = datetime.now(timezone.utc) + timedelta(seconds=3)
         product_ids = self.cart.submit_cart_order()
         print(due_date)
-        return self.shipping_service.create_shipping(shipping_type, product_ids, self.order_id, due_date)
+
+        return self.shipping_service.create_shipping(
+            shipping_type,
+            product_ids,
+            self.order_id,
+            due_date,
+        )
 
 
 @dataclass()
