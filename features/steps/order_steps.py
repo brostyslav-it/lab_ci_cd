@@ -1,5 +1,8 @@
 from behave import given, when, then
 from app.eshop import Product, ShoppingCart, Order
+from services import ShippingService
+from services.publisher import ShippingPublisher
+from services.repository import ShippingRepository
 
 
 @given('A product with availability of {amount}')
@@ -36,7 +39,7 @@ def step_cart_with_second_product(context, count):
 
 @given('An order created from the cart')
 def step_create_order(context):
-    context.order = Order(context.cart)
+    context.order = Order(context.cart, ShippingService(ShippingRepository(), ShippingPublisher()))
 
 
 @when('I place the order')
