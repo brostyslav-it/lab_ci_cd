@@ -44,7 +44,7 @@ def step_create_order(context):
 
 @when('I place the order')
 def step_place_order(context):
-    context.order.place_order()
+    context.order.place_order(ShippingService.list_available_shipping_type()[0])
 
 
 @then('Product availability should be {remaining}')
